@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111111">
+  <meta name="description" content="Dukung Live Zaqih38 melalui QRIS. Isi nominal sesuai keinginan.">
+  <title>Donasi Live — ZAQIH38</title>
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      min-height:100vh;
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:linear-gradient(145deg,#0b0b0b,#1b1b1b);
+      color:#fff;
+      display:flex;
+      justify-content:center;
+    }
+    .wrap{width:100%;max-width:520px;padding:18px 14px 28px}
+    .card{
+      background:#fff;color:#151515;border-radius:24px;
+      overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.35)
+    }
+    .hero{padding:24px 20px 18px;text-align:center;background:#111;color:#fff}
+    .badge{display:inline-block;background:#f5d000;color:#111;font-weight:800;
+      padding:6px 12px;border-radius:999px;font-size:12px;letter-spacing:.4px}
+    h1{font-size:28px;margin:12px 0 6px}
+    .sub{margin:0;color:#cfcfcf;font-size:14px;line-height:1.5}
+    .content{padding:18px}
+    .qris{
+      background:#f7f7f7;border:1px solid #e5e5e5;border-radius:18px;padding:10px;
+      text-align:center
+    }
+    .qris img{width:100%;max-width:430px;display:block;margin:auto;border-radius:12px}
+    .hint{text-align:center;font-size:14px;line-height:1.5;color:#555;margin:14px 4px 16px}
+    .steps{display:grid;gap:9px;margin-bottom:16px}
+    .step{display:flex;gap:10px;align-items:flex-start;background:#f5f5f5;border-radius:13px;padding:11px 12px}
+    .num{width:25px;height:25px;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center;
+      flex:none;font-weight:800;font-size:12px}
+    .step b{font-size:13px}.step span{font-size:12px;color:#666;display:block;margin-top:2px}
+    .btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    button{
+      border:0;border-radius:13px;padding:13px 10px;font-weight:800;font-size:14px;
+      cursor:pointer;background:#111;color:#fff
+    }
+    button.secondary{background:#eee;color:#111}
+    .footer{text-align:center;color:#777;font-size:11px;padding:14px 0 2px}
+    .toast{
+      position:fixed;left:50%;bottom:18px;transform:translate(-50%,20px);
+      background:#111;color:#fff;padding:11px 15px;border-radius:999px;font-size:13px;
+      opacity:0;pointer-events:none;transition:.25s;z-index:10
+    }
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:360px){h1{font-size:24px}.btns{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <header class="hero">
+        <span class="badge">DUKUNG LIVE</span>
+        <h1>❤️ Donasi Live</h1>
+        <p class="sub">ZAQIH38, DIGITAL &amp; KREATIF</p>
+      </header>
+
+      <div class="content">
+        <div class="qris">
+          <img src="assets/qris.png" alt="QRIS ZAQIH38">
+        </div>
+
+        <p class="hint">
+          Scan QRIS menggunakan aplikasi pembayaran yang mendukung QRIS,
+          lalu <b>masukkan nominal donasi sesuai keinginanmu</b>.
+        </p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div><b>Scan QRIS</b><span>Buka aplikasi pembayaran dan scan QRIS.</span></div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div><b>Isi nominal</b><span>Masukkan nominal donasi sendiri.</span></div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div><b>Bayar</b><span>Periksa nama penerima sebelum konfirmasi.</span></div>
+          </div>
+        </div>
+
+        <div class="btns">
+          <button onclick="sharePage()">↗ Bagikan</button>
+          <button class="secondary" onclick="copyLink()">⧉ Salin Link</button>
+        </div>
+
+        <div class="footer">Terima kasih atas dukunganmu ❤️</div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast">Link berhasil disalin</div>
+
+  <script>
+    function toast(msg){
+      const el=document.getElementById('toast');
+      el.textContent=msg; el.classList.add('show');
+      setTimeout(()=>el.classList.remove('show'),1800);
+    }
+    async function copyLink(){
+      try{
+        await navigator.clipboard.writeText(location.href);
+        toast('Link berhasil disalin');
+      }catch(e){
+        const ta=document.createElement('textarea');
+        ta.value=location.href; document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy'); ta.remove();
+        toast('Link berhasil disalin');
+      }
+    }
+    async function sharePage(){
+      const data={title:'Donasi Live ZAQIH38',text:'Dukung Live ZAQIH38 melalui QRIS ❤️',url:location.href};
+      if(navigator.share){
+        try{await navigator.share(data)}catch(e){}
+      }else{
+        copyLink();
+      }
+    }
+  </script>
+</body>
+</html>
